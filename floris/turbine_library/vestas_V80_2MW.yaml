@@ -1,0 +1,139 @@
+
+###
+# An ID for this type of turbine definition.
+# This is not currently used, but it will be enabled in the future. This should typically
+# match the root name of the file.
+turbine_type: 'vestas_V80_2MW'
+
+###
+# Setting for generator losses to power.
+generator_efficiency: 1.0
+
+###
+# Hub height.
+hub_height: 70.0
+
+###
+# Cosine exponent for power loss due to yaw misalignment.
+pP: 1.88
+
+###
+# Cosine exponent for power loss due to tilt.
+pT: 1.88
+
+###
+# Rotor diameter.
+rotor_diameter: 80.0
+
+###
+# Tip speed ratio defined as linear blade tip speed normalized by the incoming wind speed.
+TSR: 8.0
+
+###
+# The air density at which the Cp and Ct curves are defined.
+ref_density_cp_ct: 1.225
+
+###
+# The tilt angle at which the Cp and Ct curves are defined. This is used to capture
+# the effects of a floating platform on a turbine's power and wake.
+ref_tilt_cp_ct: 0.0
+
+###
+# Cp and Ct as a function of wind speed for the turbine's full range of operating conditions.
+power_thrust_table:
+  power:
+    - 0.418
+    - 0.433
+    - 0.439
+    - 0.446
+    - 0.446
+    - 0.443
+    - 0.447
+    - 0.445
+    - 0.444
+    - 0.443
+    - 0.436
+    - 0.425
+    - 0.404
+    - 0.378
+    - 0.350
+    - 0.321
+    - 0.291
+    - 0.260
+    - 0.234
+    - 0.212
+    - 0.192
+    - 0.174
+    - 0.159
+    - 0.145
+    - 0.132
+    - 0.121
+    - 0.111
+    - 0.103
+    - 0.095
+    - 0.088
+    - 0.0812
+  thrust:
+    - 0.775
+    - 0.7955
+    - 0.813
+    - 0.8215
+    - 0.8245
+    - 0.826
+    - 0.8245
+    - 0.8215
+    - 0.8145
+    - 0.801
+    - 0.772
+    - 0.725
+    - 0.6695
+    - 0.5965
+    - 0.5145
+    - 0.4325
+    - 0.377
+    - 0.3315
+    - 0.294
+    - 0.263
+    - 0.2385
+    - 0.2135
+    - 0.196
+    - 0.1785
+    - 0.1625
+    - 0.149
+    - 0.1375
+    - 0.127
+    - 0.117
+    - 0.108
+    - 0.101
+  wind_speed:
+    - 5.0
+    - 5.5
+    - 6.0
+    - 6.5
+    - 7.0
+    - 7.5
+    - 8.0
+    - 8.5
+    - 9.0
+    - 9.5
+    - 10.0
+    - 10.5
+    - 11.0
+    - 11.5
+    - 12.0
+    - 12.5
+    - 13.0
+    - 13.5
+    - 14.0
+    - 14.5
+    - 15.0
+    - 15.5
+    - 16.0
+    - 16.5
+    - 17.0
+    - 17.5
+    - 18.0
+    - 18.5
+    - 19.0
+    - 19.5
+    - 20.0
