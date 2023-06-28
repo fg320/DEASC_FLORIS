@@ -282,7 +282,8 @@ def wake_added_yaw(
     eps_gain = 0.2
     eps = eps_gain * D  # Use set value
 
-    vel_top = ((HH + D / 2) / HH) ** 0.12 * np.ones((1, 1, 1, 1, 1))
+    # vel_top = ((HH + D / 2) / HH) ** 0.12 * np.ones((1, 1, 1, 1, 1))
+    vel_top = ((HH + D / 2) / HH) ** 0.0 * np.ones((1, 1, 1, 1, 1))
     Gamma_top = gamma(
         D,
         vel_top,
@@ -291,7 +292,8 @@ def wake_added_yaw(
         scale,
     )
 
-    vel_bottom = ((HH - D / 2) / HH) ** 0.12 * np.ones((1, 1, 1, 1, 1))
+    # vel_bottom = ((HH - D / 2) / HH) ** 0.12 * np.ones((1, 1, 1, 1, 1))
+    vel_bottom = ((HH - D / 2) / HH) ** 0.0 * np.ones((1, 1, 1, 1, 1))
     Gamma_bottom = -1 * gamma(
         D,
         vel_bottom,
@@ -380,7 +382,8 @@ def calculate_transverse_velocity(
     eps = eps_gain * D  # Use set value
 
     # TODO: wind sheer is hard-coded here but should be connected to the input
-    vel_top = ((HH + D / 2) / HH) ** 0.12 * np.ones((1, 1, 1, 1, 1))
+    # vel_top = ((HH + D / 2) / HH) ** 0.12 * np.ones((1, 1, 1, 1, 1))
+    vel_top = ((HH + D / 2) / HH) ** 0.0 * np.ones((1, 1, 1, 1, 1))
     Gamma_top = sind(yaw) * cosd(yaw) * gamma(
         D,
         vel_top,
@@ -389,7 +392,8 @@ def calculate_transverse_velocity(
         scale,
     )
 
-    vel_bottom = ((HH - D / 2) / HH) ** 0.12 * np.ones((1, 1, 1, 1, 1))
+    # vel_bottom = ((HH - D / 2) / HH) ** 0.12 * np.ones((1, 1, 1, 1, 1))
+    vel_bottom = ((HH - D / 2) / HH) ** 0.0 * np.ones((1, 1, 1, 1, 1))
     Gamma_bottom = -1 * sind(yaw) * cosd(yaw) * gamma(
         D,
         vel_bottom,

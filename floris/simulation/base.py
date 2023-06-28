@@ -75,6 +75,7 @@ class BaseModel(BaseClass, ABC):
     """
 
     NUM_EPS: Final[float] = 0.001  # This is a numerical epsilon to prevent divide by zeros
+    # NUM_EPS: Final[float] = 0.01  # This is a numerical epsilon to prevent divide by zeros
 
     @abstractmethod
     def prepare_function() -> dict:
