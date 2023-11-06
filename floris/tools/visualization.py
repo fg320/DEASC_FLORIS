@@ -265,15 +265,15 @@ def visualize_cut_plane(
     )
 
     # Add line contour
-    line_contour_cut_plane(
-        cut_plane,
-        ax=ax,
-        levels=levels,
-        colors="b",
-        linewidths=0.8,
-        alpha=0.3,
-        **kwargs
-    )
+    # line_contour_cut_plane(
+    #     cut_plane,
+    #     ax=ax,
+    #     levels=levels,
+    #     colors="b",
+    #     linewidths=0.8,
+    #     alpha=0.3,
+    #     **kwargs
+    # )
 
     if cut_plane.normal_vector == "x":
         ax.invert_xaxis()
