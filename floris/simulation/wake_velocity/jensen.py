@@ -10,7 +10,7 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
-from typing import Any, Dict
+from typing import Any, Dict, Union
 
 import numexpr as ne
 import numpy as np
@@ -43,7 +43,9 @@ class JensenVelocityDeficit(BaseModel):
             :keyprefix: jvm-
     """
 
-    we: float = field(converter=float, default=0.05)
+    # Allowed parameter types: float, ndarray, list
+    # we: float = field(converter=float, default=0.05)
+    we: Union[float, np.ndarray] = field(default=0.05)
 
     def prepare_function(
         self,
@@ -62,6 +64,7 @@ class JensenVelocityDeficit(BaseModel):
             "y": grid.y_sorted,
             "z": grid.z_sorted,
         }
+
         return kwargs
 
     # @profile
@@ -77,6 +80,7 @@ class JensenVelocityDeficit(BaseModel):
         ct_i: np.ndarray,
         hub_height_i,
         rotor_diameter_i,
+        turb_idx_sorted=None, # Additional arg for parameter assigment
         # enforces the use of the below as keyword arguments and adherence to the
         # unpacking of the results from prepare_function()
         *,
@@ -140,7 +144,12 @@ class JensenVelocityDeficit(BaseModel):
         dy = ne.evaluate("y - y_i - deflection_field_i")
         dz = ne.evaluate("z - z_i")
 
-        we = self.we
+        # Assign parameter: multiple parameters for 1 wd, 1 ws, sequential solvers only!
+        if isinstance(self.we, float):
+            we = self.we
+        else:
+            we = self.we[turb_idx_sorted]
+
         NUM_EPS = JensenVelocityDeficit.NUM_EPS
 
         # y = m * x + b

@@ -82,8 +82,14 @@ def sequential_solver(
     )
     ambient_turbulence_intensity = flow_field.turbulence_intensity
 
+    # The turbine list sorted for one wind direction (the first)
+    indices_sorted = grid.sorted_coord_indices[0].flatten()
+
     # Calculate the velocity deficit sequentially from upstream to downstream turbines
     for i in range(grid.n_turbines):
+
+        turbine_idx = i
+        turb_idx_sorted = indices_sorted[turbine_idx]
 
         # Get the current turbine quantities
         x_i = np.mean(grid.x_sorted[:, :, i:i+1], axis=(3, 4))
@@ -206,6 +212,7 @@ def sequential_solver(
             ct_i,
             hub_height_i,
             rotor_diameter_i,
+            turb_idx_sorted,
             **deficit_model_args
         )
 
@@ -315,8 +322,14 @@ def full_flow_sequential_solver(
     v_wake = np.zeros_like(flow_field.v_initial_sorted)
     w_wake = np.zeros_like(flow_field.w_initial_sorted)
 
+    # The turbine list sorted for one wind direction (the first)
+    indices_sorted = flow_field_grid.sorted_coord_indices[0].flatten()
+
     # Calculate the velocity deficit sequentially from upstream to downstream turbines
     for i in range(flow_field_grid.n_turbines):
+
+        turbine_idx = i
+        turb_idx_sorted = indices_sorted[turbine_idx]
 
         # Get the current turbine quantities
         x_i = np.mean(turbine_grid.x_sorted[:, :, i:i+1], axis=(3, 4))
@@ -424,6 +437,7 @@ def full_flow_sequential_solver(
             ct_i,
             hub_height_i,
             rotor_diameter_i,
+            turb_idx_sorted,
             **deficit_model_args
         )
 

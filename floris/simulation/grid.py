@@ -472,6 +472,7 @@ class FlowFieldGrid(Grid):
     """
     x_center_of_rotation: NDArrayFloat = field(init=False)
     y_center_of_rotation: NDArrayFloat = field(init=False)
+    sorted_coord_indices: NDArrayInt = field(init=False)
 
     def __attrs_post_init__(self) -> None:
         super().__attrs_post_init__()
@@ -498,6 +499,9 @@ class FlowFieldGrid(Grid):
             self.wind_directions,
             self.turbine_coordinates_array
         )
+
+        # Sort turbine coordinates rotated and return indices
+        self.sorted_coord_indices = x.argsort(axis=2)
 
         # Construct the arrays storing the grid points
         eps = 0.01
@@ -547,6 +551,7 @@ class FlowFieldPlanarGrid(Grid):
     y_center_of_rotation: NDArrayFloat = field(init=False)
     sorted_indices: NDArrayInt = field(init=False)
     unsorted_indices: NDArrayInt = field(init=False)
+    sorted_coord_indices: NDArrayInt = field(init=False)
 
     def __attrs_post_init__(self) -> None:
         super().__attrs_post_init__()
@@ -573,6 +578,9 @@ class FlowFieldPlanarGrid(Grid):
             self.turbine_coordinates_array
         )
         max_diameter = np.max(self.reference_turbine_diameter)
+
+        # Sort turbine coordinates rotated and return indices
+        self.sorted_coord_indices = x.argsort(axis=2)
 
         if self.normal_vector == "z":  # Rules of thumb for horizontal plane
             if self.x1_bounds is None:
@@ -723,6 +731,7 @@ class PointsGrid(Grid):
     points_z: NDArrayFloat = field(converter=floris_array_converter)
     x_center_of_rotation: float | None = field(default=None)
     y_center_of_rotation: float | None = field(default=None)
+    sorted_coord_indices: NDArrayInt = field(init=False)
 
     def __attrs_post_init__(self) -> None:
         super().__attrs_post_init__()
@@ -733,6 +742,15 @@ class PointsGrid(Grid):
         Set points for calculation based on a series of user-supplied coordinates.
         """
         point_coordinates = np.array(list(zip(self.points_x, self.points_y, self.points_z)))
+
+        # These are the rotated coordinates of the wind turbines based on the wind direction
+        x_temp, _, _, _, _ = rotate_coordinates_rel_west(
+            self.wind_directions,
+            self.turbine_coordinates_array
+        )
+
+        # Sort turbine coordinates rotated and return indices
+        self.sorted_coord_indices = x_temp.argsort(axis=2)
 
         # These are the rotated coordinates of the wind turbines based on the wind direction
         x, y, z, _, _ = rotate_coordinates_rel_west(
