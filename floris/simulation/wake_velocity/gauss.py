@@ -66,6 +66,7 @@ class GaussVelocityDeficit(BaseModel):
         ct_i: np.ndarray,
         hub_height_i: float,
         rotor_diameter_i: np.ndarray,
+        turb_idx_sorted=None, # Additional arg for parameter assigment
         # enforces the use of the below as keyword arguments and adherence to the
         # unpacking of the results from prepare_function()
         *,
